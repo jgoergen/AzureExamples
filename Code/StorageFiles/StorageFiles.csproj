@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7378909B-7E05-4379-B7C6-14360E369B9F}</ProjectGuid>
+    <ProjectGuid>{B72405B6-3752-41B2-ABB6-FA99F4EED4D7}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>StoageQue</RootNamespace>
-    <AssemblyName>StoageQue</AssemblyName>
+    <RootNamespace>StorageFiles</RootNamespace>
+    <AssemblyName>StorageFiles</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

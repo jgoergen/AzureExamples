@@ -12,4 +12,8 @@ namespace StorageTable
         {
         }
     }
+
+
+    // https://blogs.msdn.microsoft.com/windowsazurestorage/2014/09/08/cross-post-managing-concurrency-in-microsoft-azure-storage/
+    // Managing Concurrency in the Table Service
 }

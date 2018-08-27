@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StoageQue
+namespace StorageFiles
 {
     class Program
     {
@@ -12,5 +12,4 @@ namespace StoageQue
         {
         }
     }
-
 }
