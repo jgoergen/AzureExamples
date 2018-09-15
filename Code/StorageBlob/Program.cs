@@ -20,6 +20,8 @@ namespace StorageBlob
         private static CloudBlobClient blobClient;
         private static CloudBlobContainer blobContainer;
 
+        // TODO: make a demo for 'prefix' matching, pulling back items with XXX in the name
+
         static void Main(string[] args)
         {
             Console.WriteLine("Starting Azure Storage Blob Examples");
@@ -377,7 +379,7 @@ namespace StorageBlob
             // The name of your metadata must conform to the naming conventions for C# identifiers.
             Console.WriteLine($"Writting blob container Meta Data");
             blobContainer.Metadata.Add("TestMetaData", $"This is a test {DateTime.Now.ToString()}");
-            blobContainer.Metadata["AnotherTest"] = "More test data {DateTime.Now.ToString()}";
+            blobContainer.Metadata["AnotherTest"] = $"More test data {DateTime.Now.ToString()}";
             blobContainer.SetMetadata();
 
             Console.WriteLine($"Re-Getting updated blob container attributes");

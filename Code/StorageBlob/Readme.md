@@ -49,8 +49,8 @@ https://docs.microsoft.com/en-us/cli/azure/storage/account?view=azure-cli-latest
     You can encrypt data at rest as an option when you create the storage account
     You can also connect via https, but the only way to do this with a custom domain is via a CDN
     Container access types
-        private: no one can get the the data within over the public internet
-        blob: public access, but only with the url to the files over the internet
+        private / off: no one can get the the data within over the public internet
+        blob: public access for downloading only, but only with the url to the files over the internet
         container: public access to container file list and files over the internet
     When you need to authorize code such as JavaScript in a user's web browser or a mobile phone app to access data in Azure Storage, one approach is to use an application in web role as a proxy: the user's device authenticates with the web role, which in turn authorizes access to storage resources. In this way, you can avoid exposing your storage account keys on insecure devices. However, this places a big overhead on the web role because all the data transferred between the user's device and the storage service must pass through the web role. You can avoid using a web role as a proxy for the storage service by using Shared Access Signatures (SAS), sometimes in conjunction with Cross-Origin Resource Sharing headers (CORS). Using SAS, you can allow your user's device to make requests directly to a storage service by means of a limited access token. For example, if a user wants to upload a photo to your application, your web role can generate and send to the user's device a SAS token that grants permission to write to a specific blob or container for the next 30 minutes (after which the SAS token expires).
    
@@ -246,7 +246,9 @@ The maximum timeout to write a block list is 60 seconds.
 A container that was recently deleted cannot be recreated until all of its blobs are deleted. Depending on how much data was stored within the container, complete deletion can take seconds or minutes. If you try to create a container of the same name during this cleanup period, your call returns an error immediately. 
 
 ## ETAGS
-An ETag property is used for optimistic concurrency during updates. It is not a timestamp as there is another property called TimeStamp that stores the last time a record was updated. For example, if you load an entity and want to update it, the ETag must match what is currently stored. This is important b/c if you have 
+An ETag property is used for optimistic concurrency during updates. It is not a timestamp as there is another property called 
+TimeStamp that stores the last time a record was updated. For example, if you load an entity and want to update it, the ETag 
+must match what is currently stored. This is important b/c if you have 
 
 Every change to a record updates the ETag stored for that record. So when someone tries to save a file with an ETag that is conflicting, then it won’t match and you can handle what should be done.
 
