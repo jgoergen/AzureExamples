@@ -1,7 +1,7 @@
 ﻿# general info
 
 ## tiers
-standard
+standard  
 premium ( includes hardware security modules )
 
 ## active directory registration
@@ -14,8 +14,6 @@ exactly what the app needs to do.
 
 ## max keyvault name
 maximum keyvault name allowed is 24
-
-
 
 # powershell
 

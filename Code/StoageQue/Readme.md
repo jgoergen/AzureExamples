@@ -1,4 +1,4 @@
-﻿Todo: https://docs.microsoft.com/en-us/azure/storage/common/storage-performance-checklist#subheading39
+﻿Go through: https://docs.microsoft.com/en-us/azure/storage/common/storage-performance-checklist#subheading39
 
 Storage queues are designed to support standard queuing scenarios, such as decoupling application components to increase scalability and tolerance for failures, load leveling, and building process workflows.
 
