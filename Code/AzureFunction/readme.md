@@ -1,0 +1,1 @@
+in order for this to run in the cloud, you will have to provide the CONNECTION_STRING app setting which is referred to in the function parameter.

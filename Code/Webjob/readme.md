@@ -1,0 +1,1 @@
+This will only ever exist inside of a webapp! First create your webapp ( which will create an app service plan / app service ) and then you can deploy this to that webapp.
