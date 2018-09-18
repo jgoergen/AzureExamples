@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebJob", "WebJob\WebJob.csproj", "{B4324FF1-017D-4FD6-8006-A1F855D09527}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunction", "AzureFunction\AzureFunction.csproj", "{B58F8B74-E735-4791-BFEC-742A07ED0A68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{B4324FF1-017D-4FD6-8006-A1F855D09527}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4324FF1-017D-4FD6-8006-A1F855D09527}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4324FF1-017D-4FD6-8006-A1F855D09527}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B58F8B74-E735-4791-BFEC-742A07ED0A68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B58F8B74-E735-4791-BFEC-742A07ED0A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B58F8B74-E735-4791-BFEC-742A07ED0A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B58F8B74-E735-4791-BFEC-742A07ED0A68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
