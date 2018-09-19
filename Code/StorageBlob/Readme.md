@@ -46,7 +46,7 @@ Premium_LRS, Standard_GRS, Standard_LRS, Standard_RAGRS, Standard_ZRS
    
    When you enable read-only access to your data in the secondary region, your data is available on a secondary endpoint as well as on the primary endpoint for your storage account. The secondary endpoint is similar to the primary endpoint, but appends the suffix –secondary to the account name. For example, if your primary endpoint for the Blob service is myaccount.blob.core.windows.net, then your secondary endpoint is myaccount-secondary.blob.core.windows.net. The access keys for your storage account are the same for both the primary and secondary endpoints.
    
-   ### Some considerations to keep in mind when using RA-GRS:  
+### Some considerations to keep in mind when using RA-GRS:  
 1) Your application has to manage which endpoint it is interacting with when using RA-GRS.  
 2) Since asynchronous replication involves a delay, changes that have not yet been replicated to the secondary region may be lost if data cannot be recovered from the primary region, for example in the event of a regional disaster.  
 3) You can check the Last Sync Time of your storage account. Last Sync Time is a GMT date/time value. All primary writes before the Last Sync Time have been successfully written to the secondary location, meaning that they are available to be read from the secondary location. Primary writes after the Last Sync Time may or may not be available for reads yet. You can query this value using the Azure portal, Azure PowerShell, or from one of the Azure Storage client libraries.  
@@ -70,6 +70,12 @@ If your client applications are not hosted within Azure (such as mobile device a
 You can encrypt data at rest as an option when you create the storage account  
 
 You can also connect via https, but the only way to do this with a custom domain is via a CDN  
+
+## Auto Retries when accessing blobs
+By default, only some failures are retried. For example, connection failures and throttling failures can be retried. Resource not found (404) or authentication 
+failures are not retried, because these are not likely to succeed on retry.  
+If not set, the Storage Client uses an exponential backoff retry policy, where the wait time gets exponentially longer between requests, up to a total of around 30 seconds.  
+The default retry policy is recommended for most scenarios.  
 
 ### Container access types
 1) private / off: no one can get the the data within over the public internet
