@@ -31,7 +31,7 @@ namespace StorageBlob
 
             // TODO: Generate the test files and use them instead
 
-            storageAccount = 
+            storageAccount =
                 CloudStorageAccount.Parse(
                     CloudConfigurationManager.GetSetting("StorageConnectionString"));
 
@@ -39,7 +39,7 @@ namespace StorageBlob
 
             Console.WriteLine($"Connecting to / creating container {CONTAINER_NAME}");
 
-            //  A blob container name must be between 3 and 63 characters in length; start with a letter or number; 
+            //  A blob container name must be between 3 and 63 characters in length; start with a letter or number;
             // and contain only letters, numbers, and the hyphen. All letters used in blob container names must be lowercase.
             blobContainer = blobClient.GetContainerReference(CONTAINER_NAME);
             blobContainer.CreateIfNotExists();
@@ -60,6 +60,9 @@ namespace StorageBlob
             UpdateContainerMetaData();
             Etags();
             LeasingBlobs();
+
+            // add this https://docs.microsoft.com/en-us/azure/storage/blobs/storage-manage-access-to-resources
+            // add this https://social.msdn.microsoft.com/Forums/azure/en-US/b41ced45-4d0a-4c81-8dd0-d7d65021fca9/how-to-use-cloudblobcontainerlistblobssegmented-in-new-api?forum=windowsazuredata
 
             Console.WriteLine($"Examples completed, press enter to quit.");
             Console.ReadLine();
@@ -126,7 +129,7 @@ namespace StorageBlob
             {
                 Console.WriteLine("Trying to update blob using orignal etag to generate if-match access condition");
                 blockBlob.UploadText(
-                    "Test upload text", 
+                    "Test upload text",
                     accessCondition:
                         AccessCondition.GenerateIfMatchCondition(orignalETag));
             }
@@ -153,7 +156,7 @@ namespace StorageBlob
 
             Console.WriteLine($"Uploading test.txt file to sub directory");
 
-            // Blob name can contain any combination of characters as long as the reserved URL characters are properly escaped. 
+            // Blob name can contain any combination of characters as long as the reserved URL characters are properly escaped.
             // The length of a blob name can range from as short as 1 character to as long as 1024 characters.
             // Avoid blob names that end with a dot (.), a forward slash (/), or a sequence or combination of the two.
             CloudBlockBlob blockBlob = subDirectory.GetBlockBlobReference(TEST_BLOCK_BLOB_NAME);
@@ -204,11 +207,11 @@ namespace StorageBlob
             // This only makes sense if the containers access level is set to private!!
             // Microsoft reccomends you set the start times on these to 15 minutes before your current time to allow for 'clock skew'
             // There will be no references to these generated SAS Tokens in the portal, it cannot be looked up again or revoked
-            // Always use HTTPS to create or distribute a SAS. If a SAS is passed over HTTP and intercepted, an attacker performing a 
-            // man -in-the-middle attack is able to read the SAS and then use it just as the intended user could have, 
+            // Always use HTTPS to create or distribute a SAS. If a SAS is passed over HTTP and intercepted, an attacker performing a
+            // man -in-the-middle attack is able to read the SAS and then use it just as the intended user could have,
             // potentially compromising sensitive data or allowing for data corruption by the malicious user.
-            // Use near-term expiration times on an ad hoc SAS. In this way, even if a SAS is compromised, it's valid only for a short time. 
-            // This practice is especially important if you cannot reference a stored access policy. Near-term expiration times also 
+            // Use near-term expiration times on an ad hoc SAS. In this way, even if a SAS is compromised, it's valid only for a short time.
+            // This practice is especially important if you cannot reference a stored access policy. Near-term expiration times also
             // limit the amount of data that can be written to a blob by limiting the time available to upload to it.
 
             SharedAccessAccountPolicy policy = new SharedAccessAccountPolicy()
@@ -239,7 +242,7 @@ namespace StorageBlob
             // This is unnecessary if you've made one by hand in the portal
             SharedAccessBlobPolicy sharedPolicy = new SharedAccessBlobPolicy()
             {
-                // When the start time for the SAS is omitted, the start time is assumed to be the time when the storage 
+                // When the start time for the SAS is omitted, the start time is assumed to be the time when the storage
                 // service receives the request. Omitting the start time for a SAS that is effective immediately helps to avoid clock skew.
                 SharedAccessExpiryTime = DateTime.UtcNow.AddHours(24),
                 Permissions = SharedAccessBlobPermissions.Read | SharedAccessBlobPermissions.List
@@ -279,7 +282,7 @@ namespace StorageBlob
             Console.WriteLine($"Starting Download Many Files Snippet");
             CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(TEST_BLOCK_BLOB_NAME);
 
-            // Define the BlobRequestionOptions on the download, including disabling MD5 hash validation for this example, 
+            // Define the BlobRequestionOptions on the download, including disabling MD5 hash validation for this example,
             // this improves the download speed.
             BlobRequestOptions options = new BlobRequestOptions
             {
@@ -287,7 +290,7 @@ namespace StorageBlob
                 StoreBlobContentMD5 = false
             };
 
-            // Retrieve the list of containers in the storage account.  
+            // Retrieve the list of containers in the storage account.
             // Create a directory and configure variables for use later.
             BlobContinuationToken continuationToken = null;
             List<CloudBlobContainer> containers = new List<CloudBlobContainer>();
@@ -302,12 +305,12 @@ namespace StorageBlob
             var directory = Directory.CreateDirectory("download");
             BlobResultSegment resultSegment = null;
 
-            // In.NET, the following code increases the default connection limit(which is usually 2 in a client environment 
-            // or 10 in a server environment) to 100.Typically, you should set the value to approximately the number of threads 
+            // In.NET, the following code increases the default connection limit(which is usually 2 in a client environment
+            // or 10 in a server environment) to 100.Typically, you should set the value to approximately the number of threads
             // used by your application.
             // You must set the connection limit before opening any connections.
             ServicePointManager.DefaultConnectionLimit = 20;
-            
+
             // Download the blobs
             try
             {
@@ -373,8 +376,8 @@ namespace StorageBlob
             Console.WriteLine($"Container url {blobContainer.StorageUri.PrimaryUri.ToString()}");
             Console.WriteLine($"Last modified date {blobContainer.Properties.LastModified.ToString()}");
 
-            // Metadata name/value pairs may contain only ASCII characters. 
-            // Metadata name/value pairs are valid HTTP headers, and so must adhere to all restrictions governing HTTP headers. 
+            // Metadata name/value pairs may contain only ASCII characters.
+            // Metadata name/value pairs are valid HTTP headers, and so must adhere to all restrictions governing HTTP headers.
             // It's recommended that you use URL encoding or Base64 encoding for names and values containing non-ASCII characters.
             // The name of your metadata must conform to the naming conventions for C# identifiers.
             Console.WriteLine($"Writting blob container Meta Data");
@@ -399,7 +402,7 @@ namespace StorageBlob
             Console.WriteLine($"Starting Upload File in Folder Snippet");
             Console.WriteLine($"Uploading test.txt file to blob");
 
-            // Blob name can contain any combination of characters as long as the reserved URL characters are properly escaped. 
+            // Blob name can contain any combination of characters as long as the reserved URL characters are properly escaped.
             // The length of a blob name can range from as short as 1 character to as long as 1024 characters.
             // Avoid blob names that end with a dot (.), a forward slash (/), or a sequence or combination of the two.
             CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference("test-directory-2/" + TEST_BLOCK_BLOB_NAME);
@@ -416,7 +419,7 @@ namespace StorageBlob
             Console.WriteLine($"Starting Upload File Snippet");
             Console.WriteLine($"Uploading test.txt file to blob");
 
-            // Blob name can contain any combination of characters as long as the reserved URL characters are properly escaped. 
+            // Blob name can contain any combination of characters as long as the reserved URL characters are properly escaped.
             // The length of a blob name can range from as short as 1 character to as long as 1024 characters.
             // Avoid blob names that end with a dot (.), a forward slash (/), or a sequence or combination of the two.
             CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(TEST_BLOCK_BLOB_NAME);
@@ -432,18 +435,18 @@ namespace StorageBlob
         {
             Console.WriteLine($"Starting Upload Many Files Snippet");
 
-            // Blob name can contain any combination of characters as long as the reserved URL characters are properly escaped. 
+            // Blob name can contain any combination of characters as long as the reserved URL characters are properly escaped.
             // The length of a blob name can range from as short as 1 character to as long as 1024 characters.
             // Avoid blob names that end with a dot (.), a forward slash (/), or a sequence or combination of the two.
             CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(TEST_BLOCK_BLOB_NAME);
             CloudBlockBlob blockBlob2 = blobContainer.GetBlockBlobReference(TEST_BLOCK_BLOB_NAME_2);
 
             // Define the BlobRequestionOptions on the upload.
-            // This includes defining an exponential retry policy to ensure that failed connections are 
+            // This includes defining an exponential retry policy to ensure that failed connections are
             // retried with a backoff policy. As multiple large files are being uploaded
-            // large block sizes this can cause an issue if an exponential retry policy is not defined.  
+            // large block sizes this can cause an issue if an exponential retry policy is not defined.
             // Additionally parallel operations are enabled with a thread count of 2
-            // This could be should be multiple of the number of cores that the machine has. Lastly MD5 hash 
+            // This could be should be multiple of the number of cores that the machine has. Lastly MD5 hash
             // validation is disabled for this example, this improves the upload speed.
             BlobRequestOptions options = new BlobRequestOptions
             {
@@ -452,8 +455,8 @@ namespace StorageBlob
                 StoreBlobContentMD5 = false
             };
 
-            // In.NET, the following code increases the default connection limit(which is usually 2 in a client environment 
-            // or 10 in a server environment) to 100.Typically, you should set the value to approximately the number of threads 
+            // In.NET, the following code increases the default connection limit(which is usually 2 in a client environment
+            // or 10 in a server environment) to 100.Typically, you should set the value to approximately the number of threads
             // used by your application.
             // You must set the connection limit before opening any connections.
             ServicePointManager.DefaultConnectionLimit = 20;
@@ -461,9 +464,9 @@ namespace StorageBlob
             List<Task> tasks = new List<Task>();
             tasks.Add(
                 blockBlob.UploadFromFileAsync(
-                    @"C:\Users\jeffg\Documents\test.txt", 
-                    null, 
-                    options, 
+                    @"C:\Users\jeffg\Documents\test.txt",
+                    null,
+                    options,
                     null));
 
             tasks.Add(
